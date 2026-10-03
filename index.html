@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">📚</div>
+        <div>
+          <h1>StudyFlow</h1>
+          <span>Study Dashboard</span>
+        </div>
+      </div>
+
+      <nav>
+        <button class="nav-item active" data-section="dashboard">🏠 <span>الرئيسية</span></button>
+        <button class="nav-item" data-section="tasks">📝 <span>المهام</span></button>
+        <button class="nav-item" data-section="focus">⏱️ <span>التركيز</span></button>
+        <button class="nav-item" data-section="stats">📊 <span>الإحصائيات</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button id="themeBtn" class="secondary-btn">🌙 الوضع الليلي</button>
+        <button id="resetBtn" class="danger-btn">↻ إعادة ضبط البيانات</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">لوحة الدراسة</p>
+          <h2 id="greeting">مرحبًا 👋</h2>
+          <p id="todayText" class="muted"></p>
+        </div>
+        <div class="clock-card">
+          <span>الوقت الآن</span>
+          <strong id="clock">00:00:00</strong>
+        </div>
+      </header>
+
+      <section id="dashboard" class="section active-section">
+        <div class="hero-card">
+          <div>
+            <span class="pill">هدف اليوم 🎯</span>
+            <h3>أنجز القليل كل يوم، وستصل بعيدًا.</h3>
+            <p>ركّز على المهمة الحالية فقط، واترك الباقي لوقته.</p>
+          </div>
+          <div class="progress-ring" id="progressRing">
+            <span id="progressPercent">0%</span>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><span>📋 المهام المكتملة</span><strong id="completedCount">0</strong><small>من <b id="totalCount">0</b> مهام</small></div>
+          <div class="stat-card"><span>⏱️ وقت التركيز</span><strong id="focusMinutes">0</strong><small>دقيقة اليوم</small></div>
+          <div class="stat-card"><span>🔥 سلسلة الدراسة</span><strong id="streak">0</strong><small>يوم متتالي</small></div>
+          <div class="stat-card"><span>📚 المادة النشطة</span><strong id="activeSubject">—</strong><small>من مهامك اليوم</small></div>
+        </div>
+
+        <div class="content-grid">
+          <div class="panel">
+            <div class="panel-head"><h3>مهام اليوم</h3><button class="text-btn" data-go="tasks">عرض الكل →</button></div>
+            <div id="dashboardTasks" class="task-list"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><h3>جلسة التركيز</h3></div>
+            <div class="mini-timer">
+              <div id="miniTimer">25:00</div>
+              <button class="primary-btn" data-go="focus">ابدأ التركيز</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tasks" class="section">
+        <div class="section-title">
+          <div><p class="eyebrow">قائمة المهام</p><h2>مهامك الدراسية</h2></div>
+        </div>
+
+        <div class="panel add-panel">
+          <form id="taskForm">
+            <input id="taskInput" type="text" placeholder="مثال: مراجعة كلمات الإنجليزية..." required>
+            <select id="subjectInput">
+              <option>English</option>
+              <option>French</option>
+              <option>Arabic</option>
+              <option>Math</option>
+              <option>Science</option>
+              <option>Other</option>
+            </select>
+            <button class="primary-btn" type="submit">+ إضافة</button>
+          </form>
+        </div>
+
+        <div class="task-filters">
+          <button class="filter active" data-filter="all">الكل</button>
+          <button class="filter" data-filter="active">غير مكتملة</button>
+          <button class="filter" data-filter="completed">مكتملة</button>
+        </div>
+        <div id="allTasks" class="panel task-list large-list"></div>
+      </section>
+
+      <section id="focus" class="section">
+        <div class="section-title">
+          <div><p class="eyebrow">Pomodoro</p><h2>وقت التركيز</h2></div>
+        </div>
+
+        <div class="focus-layout">
+          <div class="panel timer-panel">
+            <div class="timer-modes">
+              <button class="mode active" data-minutes="25">25 دقيقة</button>
+              <button class="mode" data-minutes="50">50 دقيقة</button>
+              <button class="mode" data-minutes="90">90 دقيقة</button>
+            </div>
+            <div id="mainTimer" class="main-timer">25:00</div>
+            <p id="timerStatus" class="muted">جاهز للتركيز</p>
+            <div class="timer-controls">
+              <button id="startPause" class="primary-btn">▶ بدء</button>
+              <button id="resetTimer" class="secondary-btn">↻ إعادة</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>كيف تستخدمه؟</h3>
+            <ol class="tips">
+              <li>اختر مدة التركيز المناسبة.</li>
+              <li>أبعد المشتتات عنك.</li>
+              <li>ابدأ المؤقت وركز في مهمة واحدة.</li>
+              <li>عند الانتهاء خذ استراحة قصيرة.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="stats" class="section">
+        <div class="section-title">
+          <div><p class="eyebrow">Progress</p><h2>إحصائياتك</h2></div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><span>إجمالي المهام</span><strong id="statTotal">0</strong></div>
+          <div class="stat-card"><span>المكتملة</span><strong id="statCompleted">0</strong></div>
+          <div class="stat-card"><span>دقائق التركيز</span><strong id="statFocus">0</strong></div>
+          <div class="stat-card"><span>نسبة الإنجاز</span><strong id="statPercent">0%</strong></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>تقدم المواد</h3></div>
+          <div id="subjectStats"></div>
+        </div>
+      </section>
+
+      <footer>StudyFlow • بياناتك محفوظة محليًا على هذا المتصفح</footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
